@@ -9,7 +9,14 @@ local venv_prompt='$(virtualenv_prompt_info)'
 
 ZSH_THEME_RVM_PROMPT_OPTIONS="i v g"
 
-PROMPT="╭─${user_host}${current_dir}${rvm_ruby}${vcs_branch}${venv_prompt}
+local conda_info='$(conda_prompt_info)'
+conda_prompt_info() {
+    if [ -n "$CONDA_DEFAULT_ENV" ]; then
+        echo -n "%{$fg[cyan]%}<$CONDA_DEFAULT_ENV> %{$reset_color%}"
+    fi
+}
+
+PROMPT="╭─${user_host}${current_dir}${rvm_ruby}${vcs_branch}${venv_prompt}${conda_info}
 ╰─%B${user_symbol}%b "
 RPROMPT="%B${return_code}%b"
 
